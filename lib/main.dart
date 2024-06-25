@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const SplashScreen(),
-      initialRoute: '/SplashScreen',
+      initialRoute: '/',
       getPages: [
-        GetPage(name: '/StudentList', page: () => StudentListScreen()),
+        GetPage(name: '/', page: () => StudentListScreen()),
         GetPage(name: '/Home', page: () => Home()),
         GetPage(name: '/SplashScreen', page: () => const SplashScreen()),
       ],

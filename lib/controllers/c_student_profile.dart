@@ -22,43 +22,46 @@ class StudentProfileController extends GetxController {
   }
 
   void showCustomDialog(Student student) {
-    Get.dialog(
-      DeleteDialoge(
-        onCancel: () {
-          Get.back();
-        },
-        onDelete: () {
-          db.deleteStudent(student.id).then((_) {
-            homeController.refreshStudentList();
+  Get.dialog(
+    DeleteDialoge(
+      onCancel: () {
+        Get.back();
+      },
+      onDelete: () async {
+        await db.deleteStudent(student.id);
+        homeController.refreshStudentList();
 
-            Get.snackbar(
-              'Deleted',
-              'Student data deleted successfully',
-              messageText: const Text(
-                'Student data deleted successfully',
-                style: TextStyle(color: Colors.black),
-              ),
-              titleText: const Text(
-                'Deleted',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-              snackPosition: SnackPosition.BOTTOM,
-              duration: const Duration(seconds: 3),
-              snackStyle: SnackStyle.FLOATING,
-              backgroundColor: Colors.white,
-              colorText: Colors.black,
-              margin: const EdgeInsets.all(16),
-              borderRadius: 8,
-              isDismissible: true,
-            );
-            Get.until((route) => Get.currentRoute == '/StudentList');
-          });
-        },
-      ),
-    );
-  }
+        Get.back(); // Close the dialog first
+
+        Get.snackbar(
+          'Deleted',
+          'Student data deleted successfully',
+          messageText: const Text(
+            'Student data deleted successfully',
+            style: TextStyle(color: Colors.black),
+          ),
+          titleText: const Text(
+            'Deleted',
+            style: TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+              fontSize: 17,
+            ),
+          ),
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 3),
+          snackStyle: SnackStyle.FLOATING,
+          backgroundColor: Colors.white,
+          colorText: Colors.black,
+          margin: const EdgeInsets.all(16),
+          borderRadius: 8,
+          isDismissible: true,
+        );
+
+        Get.until((route) => Get.currentRoute == '/'); // Ensure we're back to the StudentList screen
+      },
+    ),
+  );
+}
+
 }

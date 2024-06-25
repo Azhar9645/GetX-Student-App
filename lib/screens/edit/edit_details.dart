@@ -48,18 +48,25 @@ class EditStudent extends StatelessWidget {
                           pickImage();
                         },
                         child: Obx(
-                          () => CircleAvatar(
+                          () => CircleAvatar( 
                             radius: 90,
-                            backgroundImage:
-                                controller.profileimagpath.isNotEmpty
-                                    ? FileImage(
-                                        File(controller.profileimagpath.value))
-                                    : student.profileimg.isNotEmpty
-                                        ? FileImage(File(student.profileimg))
-                                        : const NetworkImage(
-                                            "https://banner2.cleanpng.com/20180802/gyc/kisspng-computer-icons-shape-user-person-scalable-vector-g-imag-icons-3-617-free-vector-icons-page-4-5b62ba06c36336.0063904315331968068003.jpg",
-                                          ) as ImageProvider,
+                            backgroundImage: controller
+                                    .profileimagpath.isNotEmpty
+                                ? FileImage(
+                                    File(controller.profileimagpath.value))
+                                : student.profileimg.isNotEmpty
+                                    ? FileImage(File(student.profileimg))
+                                    : null, // No background image if there is no profile image
                             backgroundColor: Colors.transparent,
+                            child: (controller.profileimagpath.isEmpty &&
+                                    student.profileimg.isEmpty)
+                                ? Icon(
+                                    Icons.person,
+                                    size: 90,
+                                    color: Colors
+                                        .grey, // You can adjust the size and color as needed
+                                  )
+                                : null,
                           ),
                         ),
                       ),
